@@ -1,0 +1,34 @@
+@charset "utf-8";
+.qqkf{width:144px;}					/*±ØÐëÓÐÒ»¸öºÏÊÊµÄ¿í¶È£¬·ñÔò»ñÈ¡²»µ½ÕýÈ·µÄ¿í¶È*/
+.qqkfshow { /*right:0;*/}				/*Õâ¸ö²»Òª¶¯*/
+.qqkf .qqkf a{}
+.qqkf a:hover{color:#B50708;}
+
+.qqkf .qqkf_header,.qqkf .qqkf_con,.qqkf .qqkf_foot,
+.qqkf .qqkf_btn{ 
+	background-image:url(skin.png); 
+	background-repeat:no-repeat;
+ 	_background-image:url(_skin.png);/* ie6 */
+}
+
+.qqkf .qqkf_header{ height:10px; background-position:-36px 0;}
+.qqkf .qqkf_con{	background-position:-183px 0; background-repeat:repeat-y;}
+.qqkf .qqkf_foot{ 	height:30px;background-position:-36px -55px;}
+.qqkf .qqkf_btn{	width:36px; height:155px;	background-position:0 0;}
+
+.qqkf .qqkf_box{}
+
+.qqkf .qqkf_header,.qqkf .qqkf_con,.qqkf .qqkf_tool a{}
+.qqkf .qqkf_header,.qqkf .qqkf_con{ margin-top:0;}
+
+.qqkf .qqkf_con{ padding:4px 16px;}
+.qqkf .qqkf_btn{ text-indent:-9999px; padding:0; left:-32px;color:#fff;}
+.qqkf .qqkf_btn:hover{color:#fff;}
+
+/*Èç¹ûÔÚ×ó²à*/
+.qqkf-left .qqkf_btn{
+	left:auto;right: -32px;
+	background-image:url(skin.png);
+	_background-image:url(_skin.png);/* ie6 */
+}
+.qqkf-left .qqkf_btn{background-position:right top;}

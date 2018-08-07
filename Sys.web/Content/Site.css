@@ -1,0 +1,85 @@
+﻿body {
+    font: "Trebuchet MS", Verdana, sans-serif;
+    color: #696969;
+}
+
+
+/* 菜单样式 ------------------------------*/
+button {
+    background-color: #E0E0E0;
+    color: black;
+    font-weight:bold;
+    margin-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 35px;
+    padding-right: 35px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1
+        }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+/* 表单样式 ------------------------------*/
+fieldset {
+    padding-left: 12px;
+}
+
+    fieldset label {
+        display: block;
+        padding: 4px;
+    }
+
+input[type="text"], input[type="password"] {
+    width: 300px;
+}
+
+input[type="submit"] {
+    padding: 4px;
+}
+
+/* 数据样式 ------------------------------*/
+table.data {
+    background-color: #ffffff;
+    border: 1px solid #c3c3c3;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    table.data th {
+        background-color: #e8eef4;
+        border: 1px solid #c3c3c3;
+        padding: 3px;
+    }
+
+    table.data td {
+        border: 1px solid #c3c3c3;
+        padding: 3px;
+    }
