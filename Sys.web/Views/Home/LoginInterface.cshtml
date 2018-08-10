@@ -1,0 +1,57 @@
+﻿@using System.Web.Optimization;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LoginInterface</title>
+    <link href="~/Content/public.css" rel="stylesheet" />
+    <link href="~/Content/global.css" rel="stylesheet" />
+</head>
+<body>
+    @Scripts.Render("~/Scripts")
+    <div class="outer">
+        <div id="tbar">
+            <div id="nav"><span class="l">旅游卫士 - 一站式旅行保险服务平台</span><div class="c"></div></div>
+            <div class="pd5 pdb0">
+                <div class="l"><img src="/images/weebao.png?v=111" class="mgl5" alt=""></div>
+                <div class="red" style="margin-left:270px;padding:10px;">
+                </div>
+                <div class="c"></div>
+            </div>
+        </div>
+        <div class="lsc">
+            <div class="ilsc">
+                <form id="loginForm" method="post" action="/home/login">
+                    <h3 class="f14">用户登录</h3>
+                    <div>
+                        <div class="l">账号：</div>
+                        <div class="mgl40"><input name="username" id="username" class="ipt14 w150" type="text"></div>
+                        <div class="c"></div>
+                    </div>
+                    <div class="mgt5">
+                        <div class="l">密码：</div>
+                        <div class="mgl40"><input name="password" id="password" class="ipt14 w150" type="password"></div>
+                        <div class="c"></div>
+                    </div>
+                    <input id="submitBtn" class="hide" type="submit">
+                    <input id="return" name="return" value="" type="hidden">
+                </form>
+                <div class="mgt8 mgl40">
+                    <button id="loginBtn" class="ybtn12">立即登录</button>
+                    <br>
+                    如果您还没有帐号<a href="/home/register" target="_blank" class="f14" title="点击注册">点击注册</a>
+                </div>
+                <div class="mgt20 lh18  minH50 red">
+
+                </div>
+                <div class="bbd1c mg10_0 red b f18"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿@using System.Web.Optimization;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LoginView</title>
+
+    <link href="~/Content/public.css" rel="stylesheet" />
+    <link href="~/Content/global.css" rel="stylesheet" />
+    <style type="text/css">
+
+        #resCon .tar span {
+            color: red;
+            font-family: "宋体";
+            padding-right: 4px;
+            font-size: 14px;
+        }
+
+        .h15 {
+            height: 15px;
+        }
+    </style>
+</head>
+<body>
+    @Scripts.Render("~/Scripts")
+    <div class="outer">
+        <div id="tbar">
+            <div id="nav">
+                <span class="l">欢迎登录旅游卫士B2B平台</span>
+                <div class="c"></div>
+            </div>
+            <div class="pd5 pdb0">
+                <div class="l">
+                    <img src="/images/weebao.png?v=111" class="mgl5" alt="">
+                </div>
+                <div class="l" style="height: 35px; margin-left: 5px;"></div>
+                <div class="c"></div>
+            </div>
+        </div>
+        <div>
+            <div class="mainT">
+                <b class="f14">注册: 开通您的旅游卫士账户</b>
+            </div>
+            <div class="pd10">
+
+                <p>请填写真实的联系电话或手机,帐号注册以后需要先联系您进行审批,信息不全将会影响帐号的开通!</p>
+                <div class="pd10">
+                    <div class="bbd1c9d pd5"><b>账户信息</b></div>
+                    <form id="rForm" method="post" action="/home/register" autocomplete="off">
+                        <div id="resCon">
+                            <div class="pd20" style="padding-top: 10px;">
+                                <div class="l w100 tar"><span>*</span>用户名称：</div>
+                                <div class="mgl110">
+                                    <input class="ipt14 w220" id="u_UserName" name="u.UserName" value="" type="text">
+                                    <span class="c999 mgl5">用户名最长为14个字符,含有汉字,最长为7个字</span>
+                                </div>
+                                <div class="h15"></div>
+                                <div class="l w100 tar"><span>*</span>登录密码：</div>
+                                <div class="mgl110">
+                                    <input class="ipt14 w220" id="u_Password" name="u.Password" type="password">
+                                    <span class="c999 mgl5">包含数字和字母，长度在6至20位之间!</span>
+                                </div>
+                                <div class="h15"></div>
+                                <div class="l w100 tar"><span>*</span>确认密码：</div>
+                                <div class="mgl110">
+                                    <input class="ipt14 w220" id="u_Confirm" name="u.Confirm" type="password">
+                                </div>
+                                <div class="h15"></div>
+                                <div class="l w100 tar"><span>*</span>真实姓名：</div>
+                                <div class="mgl110">
+                                    <input class="ipt14 w220" id="u_NickName" name="u.NickName" value="" type="text">
+                                    <span class="c999 mgl5">填写真实的姓名,最少2个字!</span>
+                                </div>
+                                <div class="h15"></div>
+                                <div class="l w100 tar">性别：</div>
+                                <div class="mgl110">
+                                    <span class="mgl10">
+                                        <input checked="checked" id="u_Gender_M" name="u.Gender" value="M" type="radio"><label for="u_Gender_M">先生</label>
+                                    </span>
+                                    <span class="mgl10">
+                                        <input id="u_Gender_F" name="u.Gender" value="F" type="radio"><label for="u_Gender_F">女士</label>
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="w200 l mgl20">
+                                        <button id="regBtn" class="ybtn12" type="button">立即注册</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <input id="smtBtn" class="hide" type="submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fbar" class="tac">版权所有 © 2009 - 2015 All rights reserved.  沪ICP备11010414号<br>上海铭济企业顾问有限公司 上海市静安区北京西路1701号静安中华大厦1809室</div>
+</body>
+</html>

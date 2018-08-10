@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content")
+
 </head>
 <body>
     @Scripts.Render("~/Scripts")
@@ -16,7 +17,7 @@
             }
         </style>
         <div id="tbar">
-             <div id="nav">
+            <div id="nav">
                 <span class="1" style="float: left;">成都光大国际旅行社</span>欢迎登录旅游卫士B2B平台
                 <b><a href="javascript:alert(1)">许睿</a></b>
                 <span class="cd">┊</span>
@@ -38,22 +39,31 @@
 
                 <div class=" row">
 
-                    <div class="col-sm-3">
-                        <button>境内保险</button>
+                    <div class="col-sm-2">
                         <div>
-                            <ul>
+                            <button class="toggle" data-info="ul1">境内保险</button>
+                            <ul id="ul1" data-hide="0">
                                 <li>@Html.ActionLink("太保财险", "Index", "Home")</li>
-                                <li>@Html.ActionLink("安盛天平", "PageContent", "Home")</li>
-                                <li>@Html.ActionLink("大地保险", "About", "Home")</li>
-                                <li>@Html.ActionLink("美亚保险", "About", "Home")</li>
-                                <li>@Html.ActionLink("高原保险", "About", "Home")</li>
-                                <li>@Html.ActionLink("亚太保险", "About", "Home")</li>
-                                <li>@Html.ActionLink("众安在线", "About", "Home")</li>
+                                <li>@Html.ActionLink("安盛天平", "Index", "Home")</li>
+                                <li>@Html.ActionLink("大地保险", "Index", "Home")</li>
+                                <li>@Html.ActionLink("美亚保险", "Index", "Home")</li>
+                                <li>@Html.ActionLink("高原保险", "Index", "Home")</li>
+                                <li>@Html.ActionLink("亚太保险", "Index", "Home")</li>
+                                <li>@Html.ActionLink("众安在线", "Index", "Home")</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <button class="toggle" data-info="ul2">业务管理</button>
+                            <ul id="ul2" data-hide="0">
+                                <li>@Html.ActionLink("订单查询", "PageContent", "Home")</li>
+                                <li>@Html.ActionLink("保单查询", "Index", "Home")</li>
+                                <li>@Html.ActionLink("消费明细", "Index", "Home")</li>
+                                <li>@Html.ActionLink("出单统计", "Index", "Home")</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="col-sm-9">
+                    <div class="col-sm-10">
                         @RenderBody()
                     </div>
                 </div>
@@ -65,8 +75,37 @@
 
 
         </div>
-        </div>
+    </div>
+
+    <script type="text/javascript">
+        //jqury 初始化
+        $(function () {
+
+            //toggle按钮绑定Click事件
+            $(".toggle").click(function () {
+
+                //获取按钮属性
+                var ulid = $(this).attr("data-info");
+                console.log(ulid);
+
+                //获取data-hide属性
+                var hide = $("#" + ulid).attr("data-hide");
+                if (hide == "1") {
+                    $("#" + ulid).show();
+                    $("#" + ulid).attr("data-hide", "0");
+                } else {
+                    $("#" + ulid).hide();
+                    $("#" + ulid).attr("data-hide", "1");
+                }
+
+            });
+        });
 
 
+    </script>
 </body>
+
+
+
+
 </html>

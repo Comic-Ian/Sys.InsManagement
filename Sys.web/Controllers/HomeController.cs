@@ -13,5 +13,11 @@ namespace MvcDemo.Controllers
 
         public ActionResult PageContent()
         { return View(); }
+
+        public ActionResult LoginInterface()
+        { return View(); }
+
+        public ActionResult LoginView()
+        { return View(); }
     }
 }

@@ -3,6 +3,36 @@
     ViewBag.Title = "PageContent";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>内容</h2>
+<div class="tabw">
+    <div class="tabon">订单列表</div>
+</div>
+<form action="/business/orders" autocomplete="off" id="qForm" method="get">
+    <div class="qbox mgt10">
+        <span class="l mgt2">
+            <select id="keywordTp" name="keywordTp">
+                <option value="P">订单保单</option>
+                <option value="C">客户信息</option>
+            </select>
+        </span>
+        <span class="l mgl5 mgt2"><input class="ipt12 w100" id="keyword" name="keyword" title="输入订单号,或客户信息查询" value="" type="text"></span>
+        <span class="l mgl20 mgt2">
+            <select id="dtTp" name="dtTp">
+                <option selected="selected" value="S">出单时间</option>
+                <option value="E">生效时间</option>
+            </select>
+        </span>
+        <span class="l mgl5 mgt2"><input class="ipt12 w70 l dpker dp-applied" id="bdt" name="bdt" value="" type="text"><a href="#" class="dp-choose-date" title="选择日期"> </a></span>
+        <span class="l mgl5 mgt2">至 </span>
+        <span class="l mgl5 mgt2"><input class="ipt12 w70 l dpker dp-applied" id="edt" name="edt" value="" type="text"><a href="#" class="dp-choose-date" title="选择日期"> </a></span>
+        <span class="l mgl10 mgt2">
+            <select id="status" name="status">
+                <option value=""> - 请选择 - </option>
+                <option value="E">有效</option>
+                <option value="W">撤单</option>
+            </select>
+        </span>
+        <span class="r"><button class="ybtn12" type="submit" id="smtBtn">查 询</button> <button class="gbtn12" type="submit" id="reset">重 置</button><button class="gbtn12 mgl5" type="button" id="billBtn">账单下载</button></span>
+        <div class="c"></div>
+    </div>
+</form>
 

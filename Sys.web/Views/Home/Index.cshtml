@@ -1,3 +1,410 @@
 ﻿@{ViewBag.Title = "Home Page";}
+@System.Web.Optimization.Styles.Render("~/Content")
 
-<h1>6666666666666666</h1>
+<div class=" w825" style="margin:0 auto;">
+    <div class="tabw" data-bind="with:appInfo">
+        <div data-bind="foreach:PlanGroups">
+
+            <div data-bind="text:InsureAbbr,css:ClassName,click:$parent.CurrentPlanGroup" class="tabon">太平洋财险</div>
+        </div>
+        <div class="l"><img src="/images/tab_or.gif"></div>
+        <div class="r">
+            <span style="" class="f12 mgr10" data-bind="visible:hasClauseFile">
+                <a title="点击查看详细条款" id="ClauseLink" href="Term/002006.pdf" target="_blank" data-bind="attr:{href:TermUrl}">详细条款</a>
+            </span>
+        </div>
+        <div class="c"></div>
+    </div>
+
+    <table id="pTbl" class="f_t mgt10" cellspacing="1" cellpadding="0">
+        <tbody data-bind="with:appInfo">
+            <tr style="display:none" data-bind="visible:IsAdmin">
+                <td class="lb">保单号码：</td>
+                <td class="vd" colspan="1">
+                    <input class="ipt12 w200" data-bind="value:PolicyNum" id="policyNum" name="info.PolicyNum" type="text">
+                    <label class="red" style="margin-left:5px;">线下出单</label>
+                </td>
+                <td class="lb ">投保时间：</td>
+                <td class="vd">
+                    <input class="ipt12 w100 l dpker dp-applied" data-bind="value:PolicyCreateDate" id="policyCreateDate" name="info.PolicyCreateDate" type="text"><a href="#" class="dp-choose-date" title="选择日期"> </a>
+                </td>
+            </tr>
+            <tr style="display:none" data-bind="visible:ShowClient">
+                <td class="lb"><em data-bind="visible:ClientRequried" style="display: none;">*</em>用户名：</td>
+                <td class="vd">
+                    <div class="sgw" id="c-sgw" style="width: 204px;">
+                        <div class="btn add"></div><div class="btn del" style="display: none;"></div>
+                        <input data-bind="value:UserID" id="userID" name="info.UserID" value="0" type="hidden">
+                        <input id="userName" class="ipt12 w200" autocomplete="off" style="width: 200px;" type="text">
+                        <div class="holder" style="left: 0px; top: 2px; min-width: 204px;"><ul></ul></div>
+                    </div>
+
+                </td>
+                <td class="lb">客户公司：</td>
+                <td class="vd">
+                    <input class="ipt12 w260" readonly="" data-bind="value:AbbrName" type="text">
+                </td>
+            </tr>
+            <tr>
+                <td class="lb">可用额度：</td>
+                <td class="vd">
+                    <b id="credit" class="red">7316.00</b> 元
+                </td>
+                <td class="lb">此次投保：</td>
+                <td class="vd" data-bind="with:$root">
+
+                    <b id="totalPremium" data-bind="text:ActPremium().toFixed(2)" class="red">8.25</b>元
+                    <label style="margin-left:5px;"> (标准:<b data-bind="text:StdPremium().toFixed(2)">15.00</b>元</label>
+                    <label>返利:<b data-bind="text:SavedPremium">6.75</b>元)</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="lb">投保类型：</td>
+                <td class="vd">
+                    <input data-bind="checked:HolderTp" value="P" id="tpp" name="info.HolderTp" type="radio"><label for="tpp">个人</label>
+                    <input data-bind="checked:HolderTp" value="E" id="tpe" name="info.HolderTp" type="radio"><label for="tpe">企业</label>
+                </td>
+                <td class="lb">投保人:</td>
+                <td class="vd">
+                    <input name="a.HolderOpt" data-bind="checked:HolderOpt,disable:HolderTp()=='E'" id="a_HolderOpt_A" value="A" disabled="" type="radio"><label for="a_HolderOpt_A">自动</label>
+                    <input name="a.HolderOpt" data-bind="checked:HolderOpt,disable:HolderTp()=='E'" id="a_HolderOpt_F" value="F" disabled="" type="radio"><label for="a_HolderOpt_F">指定</label>
+                </td>
+            </tr>
+            <tr data-bind="visible:$root.IsTaiwan()==false">
+                <td class="lb"><em>*</em>产品选择：</td>
+                <td class="vd w300 ddw">
+                    <select class="w260" data-bind="options: Plans,optionsText: 'PlanName',optionsValue :'PlanID',value:PlanID"><option value="65">[销售型]自由行高风险及高原 - 计划一[10万]</option><option value="66">[销售型]自由行高风险及高原 - 计划二[20万]</option><option value="67">[销售型]自由行高风险及高原 - 计划三[30万]</option><option value="68">[销售型]自由行高风险及高原 - 计划四[50万]</option><option value="625">[销售型]超全升级 - 10万计划</option><option value="626">[销售型]超全升级 - 20万计划</option><option value="627">[销售型]超全升级 - 30万计划</option><option value="628">[销售型]超全升级 - 50万计划</option><option value="147">[销售型]特惠全面型 - 计划一[10万]</option><option value="148">[销售型]特惠全面型 - 计划二[20万]</option><option value="149">[销售型]特惠全面型 - 计划三[30万]</option><option value="150">[销售型]特惠全面型 - 计划四[50万]</option></select>
+                </td>
+                <td class="lb"><em>*</em>保险期限：</td>
+                <td class="vd">
+                    <select name="a.Period" id="a_Period" data-bind="options:PeriodOptions,value:Period"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option></select><span id="p_day" data-bind="text:Unit">天</span>
+                </td>
+            </tr>
+            <tr data-bind="visible:$root.IsTaiwan()" style="display: none;">
+                <td class="lb"><em>*</em>产品选择：</td>
+                <td class="vd w300 ddw" colspan="3">
+                    <select class="w260" data-bind="options: Plans,optionsText: 'PlanName',optionsValue :'PlanID',value:PlanID"><option value="65">[销售型]自由行高风险及高原 - 计划一[10万]</option><option value="66">[销售型]自由行高风险及高原 - 计划二[20万]</option><option value="67">[销售型]自由行高风险及高原 - 计划三[30万]</option><option value="68">[销售型]自由行高风险及高原 - 计划四[50万]</option><option value="625">[销售型]超全升级 - 10万计划</option><option value="626">[销售型]超全升级 - 20万计划</option><option value="627">[销售型]超全升级 - 30万计划</option><option value="628">[销售型]超全升级 - 50万计划</option><option value="147">[销售型]特惠全面型 - 计划一[10万]</option><option value="148">[销售型]特惠全面型 - 计划二[20万]</option><option value="149">[销售型]特惠全面型 - 计划三[30万]</option><option value="150">[销售型]特惠全面型 - 计划四[50万]</option></select>
+                </td>
+            </tr>
+            <tr data-bind="visible:$root.IsTaiwan()==false">
+                <td class="lb"><em>*</em>生效时间：</td>
+                <td class="vd">
+                    <input data-bind="value:BeginDate,attr:{title:BeginDateErrMsg},css:{invitm:BeginDateInvalid}" name="a.BeginDate" id="a_BeginDate" class="ipt12 w70 l dpker dp-applied" title="" type="text"><a href="#" class="dp-choose-date" title="选择日期"> </a> <span class="l mgl5">00:00:00</span>
+                </td>
+                <td class="lb">终止时间：</td>
+                <td class="vd">
+                    <input data-bind="value:EndDate,attr:{title:EndDateErrMsg},css:{invitm:EndDateInvalid},watchValue:BeginDate" name="a.EndDate" id="a_EndDate" class="ipt12 w70 l dpker dp-applied" title="" type="text"><a href="#" class="dp-choose-date" title="选择日期"> </a><span class="l mgl5">23:59:59</span>
+                </td>
+            </tr>
+            <!-- ko ifnot:(IsCruise && isAccident)-->
+            <tr>
+                <td class="lb"><em style="" data-bind="visible:TourNameRequired">*</em>目的地：</td>
+                <td class="vd ddw">
+                    <input style="" id="TourName" class="ipt12 w260" data-bind="valueUpdate:'input',value:TourName,attr:{title:TourNameErrMsg},css:{invitm:TourNameInvalid},visible:!ShowTourNameOptions()" title="" type="text">
+                    <select class="w260" style="display:none" data-bind="options:TourNames,optionsText:'ItemText',optionsValue:'ItemText',value:SelectedTourName,visible:ShowTourNameOptions"></select>
+                </td>
+                <td class="lb"><em style="display:none" data-bind="visible:(corpID=='9766')">*</em>团号：</td>
+                <td class="vd" valign="top">
+                    <input value="" name="a.TourNum" id="a_TourNum" data-bind="value:TourNum" class="ipt12 w200" type="text">
+                </td>
+            </tr>
+            <!-- /ko -->
+            <!-- ko if:IsCruise --><!-- /ko -->
+            <!-- ko if:isAccident --><!-- /ko -->
+            <tr>
+                <td class="lb">投保提示：</td>
+                <td id="p_desc" colspan="3" class="vd" data-bind="html:Description"><ul><li>港澳台旅游需要购买出境保险！</li><li>投保范围：0-100周岁。60周岁（含）至69周岁（含）的被保险人，“意外身故、烧伤及残疾”、“突发急性病身故”、“意外伤害医疗”、“突发急性病医疗”的保险金额为保单所载金额的50%，保险费维持不变。70周岁（含）以上的被保险人，“意外身故、烧伤及残疾”、“突发急性病身故”、“意外伤害医疗”、“突发急性病医疗”的保险金额为保单所载金额的25%，保险费维持不变。</li><li>根据保险法规，对于被保险人不满10周岁的,死亡给付保险金额总和不得超过人民币20万元；被保险人已满10周岁但未满18周岁的，死亡给付保险金额总和不得超过人民币50万元。</li><li>本方案方案旅行社跟团、自由行、自驾游、高风险活动及高原地区均适用。</li><li>请最晚于出发前一天购买保险，不接受当天投保。</li><li>本产品每人在同一时间段旅行限买一份。 若购买多份保单，保险公司按照最高限额保单作为赔付标准。</li><li class="red">请将右上方详细条款交于客户，并仔细阅读保单上的保障内容、特别约定及责任免除条款。</li></ul></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="tabw mgt15">
+        <div class="r">
+            <span id="idOcrBtn" class="ybtn12 fileinput-button" style="vertical-align:middle;height:22px;line-height:20px;">
+                身份证识别
+                <input id="idUpload" name="files" data-url="/file/upload" accept="image/png, image/jpeg,application/pdf" multiple="multiple" type="file">
+            </span>
+            <span id="passOcrBtn" class="ybtn12 fileinput-button" style="vertical-align:middle;height:22px;line-height:20px;">
+                护照识别
+                <input id="passUpload" name="files" data-url="/file/upload" accept="image/png, image/jpeg,application/pdf" multiple="multiple" type="file">
+            </span>
+            <button type="button" id="copyBtn" class="ybtn12" style="vertical-align:middle;">粘贴名单</button>
+            <button type="button" data-bind="click: AddBlank" class="ybtn12" style="vertical-align:middle;">添加名单</button>
+            <button type="button" data-bind="click: RemoveChecked" class="gbtn12" style="vertical-align:middle;">删除选中</button>
+            <button type="button" style="vertical-align:middle;" data-bind="click: ShiftRelation,visible:$root.IsTaiwan()==false" class="gbtn12">投保关系</button>
+        </div>
+        <div class="tabon">被保险人</div>
+        <div class="l"><img src="/images/tab_or.gif"></div>
+        <div class="l f12 pdt5 pdl5" data-bind="with:appInfo">
+            <input style="" id="a_PolTp" data-bind="checked:chkPolTp,visible:ShowPolTp" type="checkbox">
+            <label style="" data-bind="visible:ShowPolTp" for="a_PolTp">单人保单</label>
+            <input name="a.PolTp" data-bind="value:ShowPolTp()?PolTp():'G'" value="G" type="hidden">
+
+            <input name="a.Withstamp" id="a_Withstamp" data-bind="checked:Withstamp,enable:ShowWithstamp" type="checkbox">
+            <label for="a_Withstamp" data-bind="enable:ShowWithstamp,text:WithstampText">带章保单</label>
+        </div>
+    </div>
+
+    <table class="dtbl mgt10" id="appTbl" style="" data-bind="with:Holder,visible:appInfo.chkHolderOpt" cellspacing="1" cellpadding="0">
+        <tbody>
+            <tr class="">
+                <td style="background: rgb(255, 238, 204);line-height: 22px;"><b style="width: 48px;display: block;" data-bind="text:NameDesc">投保企业</b></td>
+                <td style="" data-bind="visible:IsPersonal()==false">
+                    <input class="ipt12" style="width:272px" data-bind="value:Name,attr:{title:NameErrMsg},css:{invitm:NameInvalid}" title="" type="text">
+                </td>
+                <td style="display:none" data-bind="visible:IsPersonal">
+                    <input class="ipt12" style="width:150px" data-bind="value:Name,attr:{title:NameErrMsg},css:{invitm:NameInvalid}" title="" type="text">
+                </td>
+                <td style="background: rgb(255, 238, 204) none repeat scroll 0% 0%; line-height: 22px;" data-bind="visible:IsPersonal()==false">
+                    <b style="width: 146px;display: block;">统一信用代码证</b>
+                </td>
+                <td class="ddw" style="display:none" data-bind="visible:IsPersonal">
+                    <select data-bind="value:Gender" style="width: 38px;">
+                        <option value="M">男</option>
+                        <option value="F">女</option>
+                    </select>
+                </td>
+                <td style="display:none" class="ddw" data-bind="visible:IsPersonal">
+                    <select style="width: 65px;" data-bind="options:IDTpOptions,optionsText:'Text',optionsValue:'Value',value:IDTp"><option value="E">组织机构代码证</option></select>
+                </td>
+                <td>
+                    <input class="ipt12" style="width: 140px;" data-bind="value:IDNum,attr:{title:IDNumErrMsg},css:{invitm:IDNumInvalid}" title="" type="text">
+                </td>
+                <td style="display:none" data-bind="visible:IsPersonal">
+                    <input class="ipt12" style="width: 72px;" data-bind="value:Birthday,attr:{title:BirthdayErrMsg},css:{invitm:BirthdayInvalid}" title="" type="text">
+                </td>
+                <td style="text-align:left;width: 100%;display:none" data-bind="visible:IsPersonal">
+                    <input class="ipt12 w110" style="width: 112px;" data-bind="value:Mobile,attr:{title:MobileErrMsg},css:{invitm:MobileInvalid}" title="" type="text">
+                </td>
+                <td style="width: 100%;" data-bind="visible:IsPersonal()==false"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table id="tblInsurants" class="grid mgt10" cellspacing="1" cellpadding="0">
+        <thead>
+            <tr>
+                <th class="w25">序</th>
+                <th class="w20"><input data-bind="checked:ChkAll" class="rckb" type="checkbox"></th>
+                <th class="w160">姓名</th>
+                <th class="w40">性别</th>
+                <th class="w80">证件类型</th>
+                <th class="w140">证件号码</th>
+                <th class="w80">出生日期</th>
+                <th class="w100" data-bind="visible:($root.ShowRelation() == false) &amp;&amp; $root.IsTaiwan()==false">手机号码</th>
+                <th class="w100" data-bind="visible:$root.ShowRelation() &amp;&amp; $root.IsTaiwan()==false" style="display: none;">与投保人关系</th>
+                <th class="w60" data-bind="visible:$root.IsTaiwan()==false">受益人</th>
+                <th class="w60" data-bind="visible:$root.IsTaiwan" style="display: none;">生效日</th>
+                <th class="w60" data-bind="visible:$root.IsTaiwan" style="display: none;">终止日</th>
+                <th class="w60">结算价</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: Insurants">
+            <tr data-bind="style:{backgroundColor:BackColor},attr:{title:Msg}" style="background-color: white;" title="">
+                <td class="tac ntd" data-bind="text:($index()+1)">1</td>
+                <td class="tac chk"><input data-bind="checked:Checked" type="checkbox"></td>
+                <td>
+                    <input data-bind="value:Name,attr:{name:'s['+$index()+'].Name',title:NameErrMsg},css:{invitm:NameInvalid}" class="ipt12 w150" name="s[0].Name" title="" type="text">
+                </td>
+                <td class="ddw">
+                    <select data-bind="value:Gender,attr:{name:'s['+$index()+'].Gender'}" name="s[0].Gender">
+                        <option value="M">男</option>
+                        <option value="F">女</option>
+                    </select>
+                </td>
+                <td class="ddw">
+                    <select data-bind="value:IDTp,attr:{name:'s['+$index()+'].IDTp'}" name="s[0].IDTp">
+                        <option value="I">身份证</option>
+                        <option value="P">护照</option>
+                        <option value="G">港澳通行证</option>
+                        <option value="T">台湾通行证</option>
+                        <option value="K">通行证</option>
+                        <option value="J">军官证</option>
+                        <option value="O">其他</option>
+
+                    </select>
+                </td>
+                <td>
+                    <input data-bind="value:IDNum,attr:{name:'s['+$index()+'].IDNum',title:IDNumErrMsg},css:{invitm:IDNumInvalid}" class="ipt12 w140" name="s[0].IDNum" title="" type="text">
+                </td>
+                <td>
+                    <input data-bind="value:Birthday,attr:{name:'s['+$index()+'].Birthday',title:BirthdayErrMsg},css:{invitm:BirthdayInvalid}" class="ipt12 w70 bir" name="s[0].Birthday" title="" type="text">
+                </td>
+
+                <td data-bind="visible:($root.ShowRelation() == false) &amp;&amp; $root.IsTaiwan()==false">
+                    <input data-bind="value:Mobile,attr:{name:'s['+$index()+'].Mobile',title:MobileErrMsg},css:{invitm:MobileInvalid}" class="ipt12 w110" name="s[0].Mobile" title="" type="text">
+                </td>
+                <td data-bind="visible:$root.ShowRelation() &amp;&amp; $root.IsTaiwan()==false" style="display: none;">
+                    <select data-bind="value:RelationTp">
+                        <option value="9">其他</option>
+                        <option value="0">本人</option>
+                        <option value="1">配偶</option>
+                        <option value="2">子女</option>
+                        <option value="3">父母</option>
+                    </select>
+                </td>
+                <td data-bind="click:$root.EditBeneficiary,text:BeneficiaryTp,visible: $root.IsTaiwan()==false">法定</td>
+
+                <td class="tac premium" data-bind="visible:$root.IsTaiwan" style="display: none;">
+                    <input data-bind="value:BeginDate,attr:{name:'s['+$index()+'].BeginDate',title:BeginDateErrMsg},css:{invitm:BeginDateInvalid}" class="ipt12 w70 bir" name="s[0].BeginDate" title="" type="text">
+                </td>
+                <td class="tac premium" data-bind="visible:$root.IsTaiwan" style="display: none;">
+                    <input data-bind="value:EndDate,attr:{name:'s['+$index()+'].EndDate',title:EndDateErrMsg},css:{invitm:EndDateInvalid}" class="ipt12 w70 bir" name="s[0].EndDate" title="" type="text">
+                </td>
+                <td class="tac premium" data-bind="text:ActPremium">8.25</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="tac mgt10">
+        <input name="agreement" id="agreement" checked="checked" style="vertical-align:text-bottom;margin-bottom:1px;" type="checkbox">
+        <label for="agreement">我已详细阅读并理解<a href="/html/agreement.html" class="pop" w="800" h="480"> 投保人申明及投保注意事项</a></label>
+    </div>
+    <form method="post" action="/order/create">
+        <div class="tac mgt10">
+            <button type="button" data-bind="click:Create" class="ybtn16">确定投保</button>
+            <button type="button" data-bind="click:ToDraft" class="gbtn16 mgl10">存草稿箱</button>
+
+        </div>
+    </form>
+    <div id="planWrap" data-bind="html:appInfo.DetailHtml" class="mgt10">
+        <table class="info_tbl" cellspacing="1" cellpadding="0">
+            <tbody>
+                <tr class="tac b">
+                    <td rowspan="2" class="tac">保障内容</td>
+                    <td colspan="4" class="tac">自由行，高风险及高原责任方案</td>
+                </tr>
+                <tr class="b">
+                    <td class="w115" style="background-color: rgb(243, 230, 255);">计划一[10万]</td>
+                    <td class="w115">计划二[20万]</td>
+                    <td class="w115">计划三[30万]</td>
+                    <td class="w115">计划四[50万]</td>
+                </tr>
+                <tr>
+                    <td class="bnr" colspan="5">第一部分：意外伤害和医疗保障类</td>
+                </tr>
+                <tr>
+                    <td class="tptd">意外身故、 烧烫伤及残疾保障</td>
+                    <td style="background-color: rgb(243, 230, 255);">100,000</td>
+                    <td>200,000</td>
+                    <td>300,000</td>
+                    <td>500,000</td>
+                </tr>
+                <tr>
+                    <td class="tptd">意外伤害医疗（无免赔额，100%赔付）</td>
+                    <td style="background-color: rgb(243, 230, 255);">20,000</td>
+                    <td>30,000</td>
+                    <td>40,000</td>
+                    <td>50,000</td>
+                </tr>
+                <tr>
+                    <td class="bnr" colspan="5">第二部分：突发急性病保障类</td>
+                </tr>
+                <tr>
+                    <td class="tptd">突发急性病身故保障</td>
+                    <td style="background-color: rgb(243, 230, 255);">100,000</td>
+                    <td>200,000</td>
+                    <td>300,000</td>
+                    <td>500,000</td>
+                </tr>
+                <tr>
+                    <td class="tptd">突发急性病医疗（无免赔额，100%赔付）</td>
+                    <td style="background-color: rgb(243, 230, 255);">10,000</td>
+                    <td>20,000</td>
+                    <td>30,000</td>
+                    <td>50,000</td>
+                </tr>
+
+                <tr class="h262">
+                    <td class="bnr" colspan="5">销售价格</td>
+                </tr>
+                <tr class="h262">
+                    <td class="tac">1 - 10 天</td>
+                    <td style="background-color: rgb(243, 230, 255);">15</td>
+                    <td>25</td>
+                    <td>35</td>
+                    <td>45</td>
+                </tr>
+                <tr class="h262">
+                    <td class="tac">11 - 20 天</td>
+                    <td style="background-color: rgb(243, 230, 255);">20</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>55</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="hide" id="copyWnd">
+        <div class="p_t">
+            <div title="关闭窗口" class="c_b">×</div>
+            <div class="l">粘贴名单数据至文本框中</div>
+            <div class="c"></div>
+        </div>
+        <div style="height: 375px;overflow: auto;" id="p_copy" class="p_m">
+            <div class="warning">
+                <b>名单规则:</b>一行一个名单信息，空格分隔；如：张三  男   110101198306061417  1983-6-6   13912345678
+            </div>
+            <div class="tabw mgt10">
+                <div class="tabon">名单内容</div>
+                <div class="l"><img src="/images/tab_or.gif"></div>
+                <div class="l mgt5 pdl5">
+                    <input class="rckb" id="clearExist" type="checkbox"> <label for="clearExist"> 清空已有名单</label>
+                </div>
+                <div class="r  mgt5 pdl5">
+                    <label id="importStatus"></label>
+
+                    <select style="margin-bottom:3px;display:none;" id="selDateFormat">
+                        <option value="0">---请选择日期格式---</option>
+                        <option value="2">dd-mm-yyyy (日-月-年)</option>
+                        <option value="3">mm-dd-yyyy (月-日-年)</option>
+                        <option value="1">yyyy-mm-dd (年-月-日)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mgt10">
+                <textarea rows="10" class="h250 w720 ta12" name="copyText" id="copyText"></textarea>
+            </div>
+            <div class="h10"></div>
+        </div>
+        <div class="p_b">
+            <button id="copyOkBtn" class="ybtn12" onclick="order.Import('#copyText')">
+                名单分析
+            </button>
+        </div>
+    </div>
+    <div id="benWnd" class="hide">
+        <div class="p_t">
+            <div class="c_b" title="关闭窗口">×</div>
+            <div class="l">受益人信息</div>
+            <div class="c"></div>
+        </div>
+        <div class="p_m" id="p_m" style="height: 200px; overflow: auto;">
+            <table class="dtbl" id="benTbl" cellspacing="1" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <th>受益人</th>
+                        <th>性别</th>
+                        <th>证件类型</th>
+                        <th>证件号码</th>
+                        <th>与被保险人关系</th>
+                        <th>受益份额</th>
+                        <th>操作</th>
+                    </tr>
+                </tbody>
+                <tbody data-bind="foreach:Beneficiaries"></tbody>
+            </table>
+        </div>
+        <div class="p_b">
+            <div class="l">
+                <button class="ybtn12" type="button" data-bind="click:$root.AddBeneficiary">添加受益人</button>
+            </div>
+            <button class="ybtn12" type="button" data-bind="click:$root.SaveBeneficiary">保存</button>
+            <button id="clsBenBtn" class="gbtn12 mgl5" type="button">关闭窗口</button>
+        </div>
+    </div>
+    <div style="width: 175px; z-index: 999; position: fixed; display: none; left: 10px; top: 67px;" class="dialog " data-bind="visible:Drafts().length>0">
+        <div id="barDraft" class="bar">名单草稿箱</div>
+        <div class="content">
+
+            <ul class="prop" data-bind="foreach:Drafts"></ul>
+        </div>
+    </div>
+</div>

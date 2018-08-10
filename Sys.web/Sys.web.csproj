@@ -141,6 +141,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\PageContent.cshtml" />
+    <Content Include="Views\Home\LoginInterface.cshtml" />
+    <Content Include="Views\Home\LoginView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
