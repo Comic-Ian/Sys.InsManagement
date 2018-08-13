@@ -20,7 +20,7 @@ namespace Sys.dal
         //用户登录
         public int AddValidationUser(User user)
         {
-            return 0;
+            return 1;
         }
 
     }
