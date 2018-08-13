@@ -57,5 +57,23 @@ namespace Sys.dal
                 return null;
             }
         }
+
+        public static int ExecuteScalar(string sql) {
+
+            int result = 0;
+            SqlConnection conn = new SqlConnection(connstr);
+
+            try
+            {
+                conn.Open();
+                SqlCommand comm = new SqlCommand(sql, conn);
+                return (int)comm.ExecuteScalar();
+            }
+            catch
+            {
+                conn.Close();
+            }
+            return result;
+        }
     }
 }

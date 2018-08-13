@@ -9,8 +9,41 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>LoginInterface</title>
-    <link href="~/Content/public.css" rel="stylesheet" />
-    <link href="~/Content/global.css" rel="stylesheet" />
+    @Styles.Render("~/Content");
+
+    <script type="text/javascript">
+        function validationUser()
+        {
+            var user = {};
+            user.UserId = $("#username").val();
+            user.UserPasswd = $("#password").val();
+
+            if (user.UserId == null || user.UserId == "" || user.UserId == undefined) {
+                alert("请输入登录名");
+                return;
+            }
+
+            if (user.UserPasswd == null || user.UserPasswd == "" || user.UserPasswd == undefined) {
+                alert("请输入密码");
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Validation_User", "Home")",
+                data: { u: user },
+                success: function (data)
+                {
+                    if (data) {
+                        window.location.href = "/Home/PageContent";
+                    }
+                },
+                error: function (msg) {                   
+                }
+
+            });
+        }
+    </script>
 </head>
 <body>
     @Scripts.Render("~/Scripts")
@@ -42,9 +75,7 @@
                     <input id="return" name="return" value="" type="hidden">
                 </form>
                 <div class="mgt8 mgl40">
-                    <form method="get" action="/Home/PageContent">
-                    <button id="loginBtn" class="ybtn12">立即登录</button>
-                   </form>
+                    <button id="loginBtn" class="ybtn12" onclick="validationUser()">立即登录</button>
                     <br>
                     如果您还没有帐号<a href="/Home/LoginView" target="_blank" class="f14" title="点击注册">点击注册</a>
                 </div>

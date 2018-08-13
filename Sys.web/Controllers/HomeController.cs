@@ -28,6 +28,7 @@ namespace MvcDemo.Controllers
             bool result = false;
 
             LoginInterface loginInit = new LoginInterface();
+            result = loginInit.ValidationUser(u);
 
             return Json(result);
         }
@@ -37,6 +38,7 @@ namespace MvcDemo.Controllers
         { return View(); }
 
         //用户注册功能
+        [HttpPost]
         public JsonResult Add_User(User u)
         {
             bool result = false;

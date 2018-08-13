@@ -1,6 +1,7 @@
 ﻿using Sys.model;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,12 @@ namespace Sys.dal
         }
 
         //用户登录
-        public int AddValidationUser(User user)
+        public bool ValidationUser(User user)
         {
-            return 1;
+            string sql = string.Format("select count(*) from Tbl_acc_inf where UserId='{0}' and UserPasswd = '{1}'",user.UserId,user.UserPasswd);
+
+            return DataHelper.ExecuteScalar(sql) > 0 ? true : false;
+
         }
 
     }
