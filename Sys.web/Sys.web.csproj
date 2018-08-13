@@ -154,6 +154,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sys.dal\Sys.dal.csproj">
+      <Project>{bc9fbfa9-4638-4a9b-8564-057e2cad5442}</Project>
+      <Name>Sys.dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sys.model\Sys.model.csproj">
+      <Project>{3a563801-9f45-440c-baec-4497aa8ec9de}</Project>
+      <Name>Sys.model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

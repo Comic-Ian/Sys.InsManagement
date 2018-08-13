@@ -6,9 +6,92 @@
 <html>
 <head>
     <title>LoginView</title>
+    @Styles.Render("~/Content");
 
-    <link href="~/Content/public.css" rel="stylesheet" />
-    <link href="~/Content/global.css" rel="stylesheet" />
+    <!--注册用户js-->
+    <script type="text/javascript">
+        function addUser()
+        {
+            var user = {};
+            user.UserId = $("#u_UserName").val();
+            user.UserPasswd = $("#u_Password").val();
+            user.UserConfirm = $("#u_Confirm").val();
+            user.UserName = $("#u_NickName").val();
+
+            var ui = $.trim(user.UserId);
+            var cnReg = /[\u4E00-\u9FBF]/;
+
+            if (cnReg.test(ui)) {
+                if (ui.length > 7) {
+                    alert('用户名含有汉字,最长为7个字');
+                    return;
+                }
+            } else {
+                if (ui.length > 14) {
+                    alert('用户名最长为14个字');
+                    return;
+                }
+            }
+
+            if (ui.length < 2) {
+                alert("用户名至少为两个字符");
+                return;
+            }
+
+            if (user.UserPasswd == null || user.UserPasswd == "" || user.UserPasswd == undefined) {
+                alert("请输入密码");
+                return;
+            }
+            if (user.UserPasswd.length < 6 || user.UserPasswd.length > 20) {
+                alert("您输入的密码长度不在范围内，请重新输入");
+                return;
+            }
+            if (user.UserPasswd != user.UserConfirm) {
+                alert("两次输入密码不一致");
+                return;
+            }
+            var un = $.trim(user.UserName);
+            var cnRng = /[\u4E00-\u9FBF]/;
+            if (cnRng.test(un)) {
+                if (un.length < 2) {
+                    alert("用户名含有汉字，最小为2个字")
+                    return;
+                }
+            }
+            if (un == null || un == "" || un == undefined) {
+                alert("请输入真实姓名");
+                return;
+            }
+
+            var GenderLen = document.getElementsByName('u.Gender').length;
+
+            for (i = 0; i < GenderLen; i++) {
+                if (document.getElementsByName('u.Gender')[i].checked) {
+                    if (document.getElementsByName('u.Gender')[i].value == "M") {
+                        user.UserSex = "男";                       
+                    }
+                    if(document.getElementsByName('u.Gender')[i].value == "F") {
+                        user.UserSex = "女";
+                    }
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Add_User", "Home")",
+                data: { u: user },
+                success: function (data)
+                {
+                    if (data) {
+                        alert("注册成功，2s后将跳转到登陆页面");
+                        window.setTimeout("window.location='LoginInterface'", 2000);                      
+                    }
+                },
+                error: function (msg) {
+                }
+            });
+        }
+    </script>
     <style type="text/css">
 
         #resCon .tar span {
@@ -48,54 +131,53 @@
                 <p>请填写真实的联系电话或手机,帐号注册以后需要先联系您进行审批,信息不全将会影响帐号的开通!</p>
                 <div class="pd10">
                     <div class="bbd1c9d pd5"><b>账户信息</b></div>
-                    <form id="rForm" method="post" action="/home/register" autocomplete="off">
-                        <div id="resCon">
-                            <div class="pd20" style="padding-top: 10px;">
-                                <div class="l w100 tar"><span>*</span>用户名称：</div>
-                                <div class="mgl110">
-                                    <input class="ipt14 w220" id="u_UserName" name="u.UserName" value="" type="text">
-                                    <span class="c999 mgl5">用户名最长为14个字符,含有汉字,最长为7个字</span>
-                                </div>
-                                <div class="h15"></div>
-                                <div class="l w100 tar"><span>*</span>登录密码：</div>
-                                <div class="mgl110">
-                                    <input class="ipt14 w220" id="u_Password" name="u.Password" type="password">
-                                    <span class="c999 mgl5">包含数字和字母，长度在6至20位之间!</span>
-                                </div>
-                                <div class="h15"></div>
-                                <div class="l w100 tar"><span>*</span>确认密码：</div>
-                                <div class="mgl110">
-                                    <input class="ipt14 w220" id="u_Confirm" name="u.Confirm" type="password">
-                                </div>
-                                <div class="h15"></div>
-                                <div class="l w100 tar"><span>*</span>真实姓名：</div>
-                                <div class="mgl110">
-                                    <input class="ipt14 w220" id="u_NickName" name="u.NickName" value="" type="text">
-                                    <span class="c999 mgl5">填写真实的姓名,最少2个字!</span>
-                                </div>
-                                <div class="h15"></div>
-                                <div class="l w100 tar">性别：</div>
-                                <div class="mgl110">
-                                    <span class="mgl10">
-                                        <input checked="checked" id="u_Gender_M" name="u.Gender" value="M" type="radio"><label for="u_Gender_M">先生</label>
-                                    </span>
-                                    <span class="mgl10">
-                                        <input id="u_Gender_F" name="u.Gender" value="F" type="radio"><label for="u_Gender_F">女士</label>
-                                    </span>
-                                </div>
-                                <div>
-                                    <div class="w200 l mgl20">
-                                        <button id="regBtn" class="ybtn12" type="button">立即注册</button>
-                                    </div>
+                    <div id="resCon">
+                        <div class="pd20" style="padding-top: 10px;">
+                            <div class="l w100 tar"><span>*</span>用户名称：</div>
+                            <div class="mgl110">
+                                <input class="ipt14 w220" id="u_UserName" name="u.UserName" value="" type="text">
+                                <span class="c999 mgl5">用户名最长为14个字符,含有汉字,最长为7个字</span>
+                            </div>
+                            <div class="h15"></div>
+                            <div class="l w100 tar"><span>*</span>登录密码：</div>
+                            <div class="mgl110">
+                                <input class="ipt14 w220" id="u_Password" name="u.Password" type="password" onKeyUp="value=value.replace(/[\W]/g,'')">
+                                <span class="c999 mgl5">包含数字和字母，长度在6至20位之间!</span>
+                            </div>
+                            <div class="h15"></div>
+                            <div class="l w100 tar"><span>*</span>确认密码：</div>
+                            <div class="mgl110">
+                                <input class="ipt14 w220" id="u_Confirm" name="u.Confirm" type="password" onKeyUp="value=value.replace(/[\W]/g,'')">
+                            </div>
+                            <div class="h15"></div>
+                            <div class="l w100 tar"><span>*</span>真实姓名：</div>
+                            <div class="mgl110">
+                                <input class="ipt14 w220" id="u_NickName" name="u.NickName" value="" type="text">
+                                <span class="c999 mgl5">填写真实的姓名,最少2个字!</span>
+                            </div>
+                            <div class="h15"></div>
+                            <div class="l w100 tar">性别：</div>
+                            <div class="mgl110">
+                                <span class="mgl10">
+                                    <input checked="checked" id="u_Gender_M" name="u.Gender" value="M" type="radio"><label for="u_Gender_M">先生</label>
+                                </span>
+                                <span class="mgl10">
+                                    <input id="u_Gender_F" name="u.Gender" value="F" type="radio"><label for="u_Gender_F">女士</label>
+                                </span>
+                            </div>
+                            <div>
+                                <div class="w200 l mgl20">
+                                    <button id="regBtn" class="ybtn12" type="button" onclick="addUser()">立即注册</button>
                                 </div>
                             </div>
-                            <input id="smtBtn" class="hide" type="submit">
                         </div>
-                    </form>
+                        <input id="smtBtn" class="hide" type="submit">
+                    </div>
                 </div>
             </div>
         </div>
+        <div id="fbar" class="tac">版权所有 © 2009 - 2015 All rights reserved.  沪ICP备11010414号<br>上海铭济企业顾问有限公司 上海市静安区北京西路1701号静安中华大厦1809室</div>
     </div>
-    <div id="fbar" class="tac">版权所有 © 2009 - 2015 All rights reserved.  沪ICP备11010414号<br>上海铭济企业顾问有限公司 上海市静安区北京西路1701号静安中华大厦1809室</div>
+
 </body>
 </html>
